@@ -11,12 +11,19 @@
         </div>
         <div class="index-left-block">
             <h2>最新消息</h2>
-            <ul>
-                <li v-for = "items in news"> 
-                     {{items.title}}
-                    
-                </li>
-            </ul>
+            <router-link to="/details">链接到的位置</router-link>
+            <template>
+                <swiper :options="swiperOption">
+                    <!-- slides -->
+                    <swiper-slide><img src="../assets/j1.png" alt=""></swiper-slide></swiper-slide>
+                    <swiper-slide><img src="../assets/j2.png" alt=""></swiper-slide>
+                    <swiper-slide><img src="../assets/j3.png" alt=""></swiper-slide>
+                    <!-- Optional controls -->
+                    <div class="swiper-pagination"  slot="pagination"></div>
+                    <div class="swiper-button-prev" slot="button-prev"></div>
+                    <div class="swiper-button-next" slot="button-next"></div>
+                </swiper>
+            </template>
         </div>
 </div>
    
@@ -27,6 +34,16 @@ export default {
     name:"layout",
     data(){
         return{
+            swiperOption: {
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                loop:true,
+                navigation:{
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+             },   
             news:[],
             productList:[{
                 category:"手机应用类",
@@ -76,7 +93,7 @@ export default {
         })
         .then(res => {
             this.news = res.data.result.data
-            console.log(res.data.result.data)
+            // console.log(res.data.result.data)
         })
         .catch(error =>{
             console.log(error)
